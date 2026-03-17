@@ -1,18 +1,18 @@
-let sum = 0;
+let primeSum = 0;
 
 for (let i = 2; i <= 1000; i++) {
-    let isPrime = true;
+    let prime = true;
 
     for (let j = 2; j <= Math.sqrt(i); j++) {
         if (i % j === 0) {
-            isPrime = false;
+            prime = false;
             break;
         }
     }
 
-    if (isPrime) {
-        sum += i;
+    if (prime) {
+        primeSum += i;
     }
 }
 
-console.log("Сума від 1 до 1000:", sum);
+console.log("Prime sum:", primeSum);
