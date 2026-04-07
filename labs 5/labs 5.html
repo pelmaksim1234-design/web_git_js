@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Лабораторна 5</title>
+    <link href="st/css1.css" rel="stylesheet">
+    <link href="st/css2.css" rel="stylesheet">
+    <link href="st/css3.css" rel="stylesheet">
+    <link href="st/css4.css" rel="stylesheet">
+</head>
+<body>
+<div id="bulb" class="regular"></div>
+
+<div class="controls">
+    <button id="toggle-btn">Включити</button>
+    <select id="type-select">
+        <option value="regular">Звичайна лампочка</option>
+        <option value="energy">Енергозберігаюча</option>
+        <option value="led">Світлодіодна</option>
+    </select>
+    <button id="brightness-btn">Яскравість</button>
+</div>
+<script src="js/завданя1.js"></script>
+
+<!-- 2 -->
+<div class="traffic-light">
+    <div class="light red" id="red-light"></div>
+    <div class="light yellow" id="yellow-light"></div>
+    <div class="light green" id="green-light"></div>
+</div>
+
+<div id="status-text">Вимкнено</div>
+
+<div class="controls">
+    <button id="manual-btn">Наступний стан</button>
+    <button id="settings-btn">Налаштувати час</button>
+</div>
+<script src="js/завдання_2.js"></script>
+
+<!-- 3 -->
+<div class="section">
+    <h3>1. Цифровий годинник</h3>
+    <div class="clock" id="digital-clock">00<span class="blink">:</span>00<span class="blink">:</span>00</div>
+</div>
+
+<div class="section">
+    <h3>2. Таймер зворотного відліку</h3>
+    <input type="datetime-local" id="countdown-input">
+    <div class="result" id="countdown-result">Оберіть дату та час</div>
+</div>
+
+<div class="section">
+    <h3>3 & 4. Календар та День Народження</h3>
+    <input type="date" id="bday-input">
+    <div class="result" id="bday-result">Вкажіть дату народження</div>
+</div>
+
+<script src="js/завдання_3.js"></script>
+
+<!-- 4 -->
+<section class="shop-section">
+    <h3>4. Облік товарів</h3>
+
+    <div class="shop-grid">
+        <form id="product-form" class="shop-card">
+            <h4>Додати або оновити товар</h4>
+            <input id="product-id" type="text" placeholder="ID товару" required>
+            <input id="product-name" type="text" placeholder="Назва товару" required>
+            <input id="product-price" type="number" min="0" step="0.01" placeholder="Ціна" required>
+            <input id="product-stock" type="number" min="0" step="1" placeholder="Кількість на складі" required>
+            <div class="shop-actions">
+                <button type="submit" id="add-product-btn">Зберегти товар</button>
+                <button type="button" id="update-product-btn">Оновити по ID</button>
+            </div>
+        </form>
+
+        <div class="shop-card">
+            <h4>Операції</h4>
+            <input id="delete-product-id" type="text" placeholder="ID для видалення">
+            <button type="button" id="delete-product-btn">Видалити товар</button>
+
+            <input id="search-product-name" type="text" placeholder="Назва для пошуку">
+            <button type="button" id="search-product-btn">Знайти товар</button>
+
+            <input id="order-product-id" type="text" placeholder="ID для замовлення">
+            <input id="order-quantity" type="number" min="1" step="1" placeholder="Кількість">
+            <button type="button" id="order-product-btn">Оформити замовлення</button>
+        </div>
+    </div>
+
+    <div id="shop-status" class="shop-status">Каталог порожній</div>
+
+    <div class="shop-card">
+        <h4>Результат пошуку</h4>
+        <div id="search-result" class="search-result">Пошук ще не виконувався</div>
+    </div>
+
+    <div class="shop-card">
+        <h4>Каталог товарів</h4>
+        <div id="product-list" class="product-list"></div>
+    </div>
+
+    <div class="shop-card">
+        <h4>Історія змін товару</h4>
+        <div id="history-result" class="search-result">Історія ще не сформована</div>
+    </div>
+
+    <div class="shop-card">
+        <h4>Замовлення</h4>
+        <div id="order-list" class="product-list"></div>
+    </div>
+</section>
+<script src="js/завдання_4.js"></script>
+</body>
+</html>
