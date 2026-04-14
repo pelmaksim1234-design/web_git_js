@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лабораторна 6 - Завдання 2</title>
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+<div class="container">
+    <h1>Завдання 2. To-do list</h1>
+
+    <div class="block">
+        <form id="taskForm">
+            <label for="taskInput">Нове завдання</label>
+            <div class="form-row">
+                <input id="taskInput" type="text" required minlength="3" maxlength="120" placeholder="Введіть завдання">
+                <button type="submit">Додати</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="block">
+        <h2>Сортування</h2>
+        <div id="sortButtons"></div>
+    </div>
+
+    <div class="block">
+        <p><strong>Всього:</strong> <span id="allCount">0</span></p>
+        <p><strong>Виконано:</strong> <span id="doneCount">0</span></p>
+    </div>
+
+    <div class="block">
+        <h2>Список завдань</h2>
+        <p id="emptyTaskText">Список завдань порожній. Додайте перше завдання.</p>
+        <div id="taskList" class="task-list"></div>
+    </div>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script src="script/task2.js"></script>
+</body>
+</html>

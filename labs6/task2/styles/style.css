@@ -1,0 +1,139 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #eef2f3;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.block,
+.task-item {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.form-row,
+.task-top,
+.task-buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+input {
+    flex: 1 1 250px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+button {
+    padding: 10px 14px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    background: #2f80ed;
+    color: white;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+#sortButtons button {
+    margin: 5px 5px 0 0;
+    background: #555;
+}
+
+#sortButtons .active {
+    background: #2f80ed;
+}
+
+.task-item {
+    animation: showItem 0.3s ease;
+}
+
+.task-item.removing {
+    animation: hideItem 0.3s ease forwards;
+}
+
+.task-item.done {
+    background: #dff9e4;
+}
+
+.task-text {
+    flex: 1 1 300px;
+    cursor: pointer;
+}
+
+.task-item.done .task-text {
+    text-decoration: line-through;
+}
+
+.task-edit-row {
+    display: none;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+.task-item.editing .task-edit-row {
+    display: flex;
+}
+
+.task-item.editing .task-view-row {
+    display: none;
+}
+
+.delete-btn {
+    background: #d63031;
+}
+
+.toast {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    background: #333;
+    color: white;
+    padding: 12px 18px;
+    border-radius: 6px;
+    display: none;
+}
+
+.toast.show {
+    display: block;
+}
+
+@keyframes showItem {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes hideItem {
+    to {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+}
+
+@media (max-width: 700px) {
+    .form-row,
+    .task-top,
+    .task-buttons,
+    .task-edit-row {
+        flex-direction: column;
+    }
+}

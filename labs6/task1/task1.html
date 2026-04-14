@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лабораторна 6 - Завдання 1</title>
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+<div class="container">
+    <h1>Завдання 1. Список товарів</h1>
+
+    <div class="top-block">
+        <div class="info-box">
+            <h2>Загальна вартість</h2>
+            <p id="totalPrice">0 грн</p>
+        </div>
+    </div>
+
+    <div class="controls">
+        <div class="block">
+            <h3>Фільтр</h3>
+            <div id="filterButtons"></div>
+        </div>
+
+        <div class="block">
+            <h3>Сортування</h3>
+            <div id="sortButtons"></div>
+        </div>
+    </div>
+
+    <div class="block">
+        <div class="products-header">
+            <h2>Товари</h2>
+            <button id="openModalBtn">Додати новий товар</button>
+        </div>
+        <p id="emptyText">Наразі список товарів пустий. Додайте новий товар.</p>
+        <div id="productList" class="product-list"></div>
+    </div>
+</div>
+
+<div id="modal" class="modal">
+    <div class="modal-content">
+        <h2 id="modalTitle">Додати товар</h2>
+        <form id="productForm">
+            <label for="productId">ID товару</label>
+            <input id="productId" name="productId" type="text" required minlength="2" maxlength="20">
+
+            <label for="productName">Назва товару</label>
+            <input id="productName" name="productName" type="text" required minlength="2" maxlength="50">
+
+            <label for="productPrice">Ціна товару</label>
+            <input id="productPrice" name="productPrice" type="number" required min="1" step="0.01">
+
+            <label for="productCategory">Категорія товару</label>
+            <select id="productCategory" name="productCategory" required>
+                <option value="Електроніка">Електроніка</option>
+                <option value="Книги">Книги</option>
+                <option value="Одяг">Одяг</option>
+            </select>
+
+            <label for="productImage">Посилання на зображення</label>
+            <input id="productImage" name="productImage" type="url" required>
+
+            <div class="modal-buttons">
+                <button type="submit">Зберегти</button>
+                <button type="button" id="closeModalBtn">Закрити</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script src="script/task1.js"></script>
+</body>
+</html>
