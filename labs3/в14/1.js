@@ -1,9 +1,9 @@
-let a = 10;
-let b = 15;
-let count = 15;
-let sum = 10;
+let a = 0;
+let b = 1;
+let count = 1;
+let sum = 0;
 
-while (count <= 100) {
+while (count <= 10) {
     sum += a;
     let next= a+b;
     a=b;

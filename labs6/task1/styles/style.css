@@ -1,191 +1,325 @@
+* {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
     font-family: Arial, sans-serif;
+    color: #222;
     background: #f4f4f4;
 }
 
-.container {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 20px;
+.site-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    align-items: center;
+    padding: 25px 8%;
+    color: white;
+    background: #2f4858;
 }
 
-h1,
-h2,
-h3,
-p {
+.site-header h1,
+.site-header p {
+    margin: 0;
+}
+
+.site-header h1 {
+    margin-bottom: 8px;
+}
+
+.total-box {
+    min-width: 210px;
+    padding: 15px;
+    border-radius: 8px;
+    color: #222;
+    background: white;
+}
+
+.total-box span,
+.total-box strong {
+    display: block;
+}
+
+.total-box strong {
+    margin-top: 5px;
+    font-size: 24px;
+}
+
+.container {
+    width: min(1100px, 92%);
+    margin: 25px auto;
+}
+
+.controls,
+.products-section {
+    margin-bottom: 20px;
+    padding: 18px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: white;
+}
+
+.controls h2,
+.products-section h2 {
     margin-top: 0;
 }
 
-.top-block,
-.controls,
-.product-list,
-.modal-buttons {
+.button-row,
+.card-actions,
+.form-actions {
     display: flex;
-    gap: 15px;
     flex-wrap: wrap;
-}
-
-.block,
-.info-box,
-.product-card,
-.modal-content {
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.block,
-.info-box {
-    padding: 15px;
-    margin-bottom: 20px;
-}
-
-.controls .block {
-    flex: 1 1 300px;
-}
-
-.products-header {
-    display: flex;
-    justify-content: space-between;
     gap: 10px;
-    align-items: center;
-    margin-bottom: 15px;
 }
 
 button {
-    padding: 10px 14px;
+    cursor: pointer;
     border: none;
     border-radius: 6px;
-    cursor: pointer;
-    background: #2f80ed;
+    font: inherit;
+}
+
+.main-btn {
+    padding: 11px 18px;
     color: white;
+    background: #2f4858;
 }
 
-button:hover {
-    opacity: 0.9;
+.light-btn {
+    padding: 10px 14px;
+    color: #222;
+    background: #e7e7e7;
 }
 
-#filterButtons button,
-#sortButtons button {
-    margin: 5px 5px 0 0;
-    background: #555;
-}
-
-#filterButtons .active,
-#sortButtons .active {
-    background: #2f80ed;
+.light-btn.active {
+    color: white;
+    background: #33658a;
 }
 
 .product-list {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 18px;
+    margin-bottom: 18px;
+}
+
+.empty-text {
+    padding: 20px;
+    text-align: center;
+    border: 1px dashed #aaa;
+    border-radius: 8px;
+    background: #fafafa;
 }
 
 .product-card {
-    padding: 15px;
-    animation: showCard 0.3s ease;
-}
-
-.product-card.removing {
-    animation: hideCard 0.3s ease forwards;
+    overflow: hidden;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 .product-card img {
+    display: block;
     width: 100%;
     height: 180px;
     object-fit: cover;
-    border-radius: 8px;
-    margin-bottom: 10px;
+    background: #ddd;
 }
 
-.product-card p {
+.card-info {
+    padding: 14px;
+}
+
+.card-info h3 {
+    margin: 8px 0;
+}
+
+.small-text {
+    margin: 5px 0;
+    color: #666;
+    font-size: 14px;
+}
+
+.price {
+    margin: 8px 0;
+    color: #2f4858;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.category {
+    display: inline-block;
     margin-bottom: 8px;
+    padding: 5px 9px;
+    border-radius: 20px;
+    color: white;
+    background: #33658a;
+    font-size: 14px;
 }
 
-.product-card .buttons {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
+.card-actions {
+    padding: 0 14px 14px;
 }
 
-.product-card .delete-btn {
-    background: #d63031;
+.edit-btn,
+.delete-btn {
+    padding: 9px 12px;
+    color: white;
+}
+
+.edit-btn {
+    background: #33658a;
+}
+
+.delete-btn {
+    background: #c0392b;
 }
 
 .modal {
-    display: none;
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.5);
-    padding: 20px;
-}
-
-.modal.show {
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.55);
 }
 
-.modal-content {
-    width: 100%;
-    max-width: 500px;
+.modal[hidden] {
+    display: none;
+}
+
+.modal-window {
+    width: min(520px, 100%);
     padding: 20px;
+    border-radius: 8px;
+    background: white;
+    animation: modalShow 0.25s ease;
+}
+
+.modal-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+}
+
+.modal-top h2 {
+    margin: 0;
+}
+
+.close-btn {
+    width: 34px;
+    height: 34px;
+    background: #e7e7e7;
 }
 
 form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+    display: grid;
+    gap: 12px;
+    margin-top: 15px;
+}
+
+label {
+    display: grid;
+    gap: 6px;
 }
 
 input,
 select {
+    width: 100%;
     padding: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid #bbb;
     border-radius: 6px;
+    font: inherit;
+}
+
+input:focus,
+select:focus {
+    outline: 2px solid #86bbd8;
+    border-color: #33658a;
 }
 
 .toast {
     position: fixed;
     right: 20px;
     bottom: 20px;
-    background: #333;
+    max-width: 360px;
+    padding: 14px 18px;
+    border-radius: 8px;
     color: white;
-    padding: 12px 18px;
-    border-radius: 6px;
-    display: none;
+    background: #222;
+    opacity: 0;
+    transform: translateY(15px);
+    pointer-events: none;
+    transition: 0.25s;
 }
 
 .toast.show {
-    display: block;
+    opacity: 1;
+    transform: translateY(0);
 }
 
-@keyframes showCard {
+.add-animation {
+    animation: productAdd 0.3s ease;
+}
+
+.delete-animation {
+    animation: productDelete 0.3s ease forwards;
+}
+
+@keyframes productAdd {
     from {
         opacity: 0;
-        transform: translateY(10px);
+        transform: translateY(15px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
     }
 }
 
-@keyframes hideCard {
+@keyframes productDelete {
     to {
         opacity: 0;
-        transform: scale(0.95);
+        transform: scale(0.9);
+    }
+}
+
+@keyframes modalShow {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 
 @media (max-width: 700px) {
-    .products-header {
+    .site-header {
+        align-items: stretch;
         flex-direction: column;
-        align-items: flex-start;
+        padding: 20px;
     }
 
-    .modal-content {
-        padding: 15px;
+    .total-box {
+        min-width: 0;
+    }
+
+    .main-btn,
+    .light-btn,
+    .edit-btn,
+    .delete-btn {
+        width: 100%;
+    }
+
+    .form-actions {
+        flex-direction: column;
     }
 }

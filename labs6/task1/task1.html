@@ -7,64 +7,78 @@
     <link rel="stylesheet" href="styles/style.css">
 </head>
 <body>
-<div class="container">
-    <h1>Завдання 1. Список товарів</h1>
-
-    <div class="top-block">
-        <div class="info-box">
-            <h2>Загальна вартість</h2>
-            <p id="totalPrice">0 грн</p>
-        </div>
+<header class="site-header">
+    <div>
+        <h1>Список товарів</h1>
+        <p>Додавання, видалення, редагування, фільтрація та сортування товарів.</p>
     </div>
-
-    <div class="controls">
-        <div class="block">
-            <h3>Фільтр</h3>
-            <div id="filterButtons"></div>
-        </div>
-
-        <div class="block">
-            <h3>Сортування</h3>
-            <div id="sortButtons"></div>
-        </div>
+    <div class="total-box">
+        <span>Загальна вартість:</span>
+        <strong id="totalPrice">0 грн</strong>
     </div>
+</header>
 
-    <div class="block">
-        <div class="products-header">
-            <h2>Товари</h2>
-            <button id="openModalBtn">Додати новий товар</button>
-        </div>
-        <p id="emptyText">Наразі список товарів пустий. Додайте новий товар.</p>
+<main class="container">
+    <section class="controls" aria-label="Фільтрація товарів">
+        <h2>Фільтр товарів</h2>
+        <div id="filterButtons" class="button-row"></div>
+    </section>
+
+    <section class="controls" aria-label="Сортування товарів">
+        <h2>Сортування товарів</h2>
+        <div id="sortButtons" class="button-row"></div>
+    </section>
+
+    <section class="products-section">
+        <h2>Товари</h2>
+        <p id="emptyText" class="empty-text">Наразі список товарів пустий. Додайте новий товар.</p>
         <div id="productList" class="product-list"></div>
-    </div>
-</div>
+        <button id="addProductBtn" class="main-btn" type="button">Додати новий товар</button>
+    </section>
+</main>
 
-<div id="modal" class="modal">
-    <div class="modal-content">
-        <h2 id="modalTitle">Додати товар</h2>
+<div id="productModal" class="modal" hidden>
+    <div class="modal-window" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div class="modal-top">
+            <h2 id="modalTitle">Додати товар</h2>
+            <button id="closeModalBtn" class="close-btn" type="button" aria-label="Закрити">x</button>
+        </div>
+
         <form id="productForm">
-            <label for="productId">ID товару</label>
-            <input id="productId" name="productId" type="text" required minlength="2" maxlength="20">
+            <input id="oldProductId" type="hidden">
 
-            <label for="productName">Назва товару</label>
-            <input id="productName" name="productName" type="text" required minlength="2" maxlength="50">
+            <label>
+                ID товару
+                <input id="productId" type="number" min="1" required>
+            </label>
 
-            <label for="productPrice">Ціна товару</label>
-            <input id="productPrice" name="productPrice" type="number" required min="1" step="0.01">
+            <label>
+                Назва товару
+                <input id="productName" type="text" minlength="2" maxlength="50" required>
+            </label>
 
-            <label for="productCategory">Категорія товару</label>
-            <select id="productCategory" name="productCategory" required>
-                <option value="Електроніка">Електроніка</option>
-                <option value="Книги">Книги</option>
-                <option value="Одяг">Одяг</option>
-            </select>
+            <label>
+                Ціна товару
+                <input id="productPrice" type="number" min="1" step="0.01" required>
+            </label>
 
-            <label for="productImage">Посилання на зображення</label>
-            <input id="productImage" name="productImage" type="url" required>
+            <label>
+                Категорія
+                <select id="productCategory" required>
+                    <option value="Техніка">Техніка</option>
+                    <option value="Книги">Книги</option>
+                    <option value="Одяг">Одяг</option>
+                </select>
+            </label>
 
-            <div class="modal-buttons">
-                <button type="submit">Зберегти</button>
-                <button type="button" id="closeModalBtn">Закрити</button>
+            <label>
+                Зображення товару
+                <input id="productImage" type="url" placeholder="https://example.com/photo.jpg" required>
+            </label>
+
+            <div class="form-actions">
+                <button class="main-btn" type="submit">Зберегти</button>
+                <button id="cancelModalBtn" class="light-btn" type="button">Скасувати</button>
             </div>
         </form>
     </div>

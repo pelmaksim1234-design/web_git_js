@@ -1,289 +1,316 @@
-const products = [
+'use strict';
+
+const categories = ['Техніка', 'Книги', 'Одяг'];
+
+const productsStart = [
     {
-        id: "1",
-        name: "Навушники",
+        id: '1',
+        name: 'Навушники',
         price: 1200,
-        category: "Електроніка",
-        image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=900&q=80",
-        createdAt: "2026-04-10T10:00:00",
-        updatedAt: "2026-04-10T10:00:00"
+        category: 'Техніка',
+        image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600',
+        createdAt: '2026-04-01T10:00:00',
+        updatedAt: '2026-04-01T10:00:00'
     },
     {
-        id: "2",
-        name: "Книга JavaScript",
-        price: 500,
-        category: "Книги",
-        image: "https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=900&q=80",
-        createdAt: "2026-04-11T10:00:00",
-        updatedAt: "2026-04-11T10:00:00"
+        id: '2',
+        name: 'Книга JavaScript',
+        price: 450,
+        category: 'Книги',
+        image: 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=600',
+        createdAt: '2026-04-03T12:00:00',
+        updatedAt: '2026-04-03T12:00:00'
     },
     {
-        id: "3",
-        name: "Футболка",
+        id: '3',
+        name: 'Футболка',
         price: 700,
-        category: "Одяг",
-        image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=900&q=80",
-        createdAt: "2026-04-12T10:00:00",
-        updatedAt: "2026-04-12T10:00:00"
+        category: 'Одяг',
+        image: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600',
+        createdAt: '2026-04-05T14:30:00',
+        updatedAt: '2026-04-05T14:30:00'
     }
 ];
 
-let currentFilter = "Всі";
-let currentSort = "none";
-let editId = null;
+let products = [...productsStart];
+let activeCategory = 'all';
+let activeSort = 'none';
+let toastTimer = null;
 
-const productList = document.getElementById("productList");
-const totalPrice = document.getElementById("totalPrice");
-const emptyText = document.getElementById("emptyText");
-const modal = document.getElementById("modal");
-const productForm = document.getElementById("productForm");
-const modalTitle = document.getElementById("modalTitle");
-const toast = document.getElementById("toast");
+const productList = document.getElementById('productList');
+const emptyText = document.getElementById('emptyText');
+const totalPrice = document.getElementById('totalPrice');
+const filterButtons = document.getElementById('filterButtons');
+const sortButtons = document.getElementById('sortButtons');
+const addProductBtn = document.getElementById('addProductBtn');
+const productModal = document.getElementById('productModal');
+const closeModalBtn = document.getElementById('closeModalBtn');
+const cancelModalBtn = document.getElementById('cancelModalBtn');
+const modalTitle = document.getElementById('modalTitle');
+const productForm = document.getElementById('productForm');
+const oldProductId = document.getElementById('oldProductId');
+const productId = document.getElementById('productId');
+const productName = document.getElementById('productName');
+const productPrice = document.getElementById('productPrice');
+const productCategory = document.getElementById('productCategory');
+const productImage = document.getElementById('productImage');
+const toast = document.getElementById('toast');
 
-const productIdInput = document.getElementById("productId");
-const productNameInput = document.getElementById("productName");
-const productPriceInput = document.getElementById("productPrice");
-const productCategoryInput = document.getElementById("productCategory");
-const productImageInput = document.getElementById("productImage");
+const formatPrice = (price) => `${price.toLocaleString('uk-UA')} грн`;
 
-// Показуємо повідомлення після додавання, редагування або видалення.
-function showToast(text) {
-    toast.textContent = text;
-    toast.classList.add("show");
-    setTimeout(() => {
-        toast.classList.remove("show");
+const getTotal = (items) => items.reduce((sum, item) => sum + Number(item.price), 0);
+
+const addProduct = (items, product) => [...items, product];
+
+const deleteProduct = (items, id) => items.filter((item) => item.id !== id);
+
+const editProduct = (items, oldId, newProduct) => items.map((item) => (
+    item.id === oldId ? { ...newProduct, createdAt: item.createdAt } : item
+));
+
+const filterProducts = (items, category) => (
+    category === 'all' ? [...items] : items.filter((item) => item.category === category)
+);
+
+const sortProducts = (items, sortType) => {
+    const sortedItems = [...items];
+
+    if (sortType === 'price') {
+        return sortedItems.sort((a, b) => a.price - b.price);
+    }
+
+    if (sortType === 'created') {
+        return sortedItems.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    }
+
+    if (sortType === 'updated') {
+        return sortedItems.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
+    }
+
+    return sortedItems;
+};
+
+const getVisibleProducts = (items, category, sortType) => {
+    const filtered = filterProducts(items, category);
+    return sortProducts(filtered, sortType);
+};
+
+const createText = (text, className = '') => {
+    const element = document.createElement('p');
+    element.textContent = text;
+    element.className = className;
+    return element;
+};
+
+const showToast = (message) => {
+    toast.textContent = message;
+    toast.classList.add('show');
+
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => {
+        toast.classList.remove('show');
     }, 2500);
-}
+};
 
-// Рахуємо загальну суму всіх товарів.
-function getTotalPrice() {
-    let sum = 0;
-    for (let i = 0; i < products.length; i += 1) {
-        sum += products[i].price;
-    }
-    return sum;
-}
+const openModal = (product = null) => {
+    productForm.reset();
+    productId.setCustomValidity('');
 
-// Залишаємо тільки потрібну категорію.
-function getFilteredProducts() {
-    if (currentFilter === "Всі") {
-        return [...products];
-    }
-
-    return products.filter((product) => product.category === currentFilter);
-}
-
-// Сортуємо вже відфільтрований список.
-function getSortedProducts(list) {
-    const newList = [...list];
-
-    if (currentSort === "price") {
-        newList.sort((a, b) => a.price - b.price);
+    if (product) {
+        modalTitle.textContent = 'Редагувати товар';
+        oldProductId.value = product.id;
+        productId.value = product.id;
+        productName.value = product.name;
+        productPrice.value = product.price;
+        productCategory.value = product.category;
+        productImage.value = product.image;
+    } else {
+        modalTitle.textContent = 'Додати товар';
+        oldProductId.value = '';
     }
 
-    if (currentSort === "created") {
-        newList.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    productModal.hidden = false;
+};
+
+const closeModal = () => {
+    productModal.hidden = true;
+    productForm.reset();
+    productId.setCustomValidity('');
+};
+
+const createButton = (text, className, isActive, onClick) => {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.textContent = text;
+    button.className = className;
+
+    if (isActive) {
+        button.classList.add('active');
     }
 
-    if (currentSort === "updated") {
-        newList.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
-    }
+    button.addEventListener('click', onClick);
+    return button;
+};
 
-    return newList;
-}
+const renderFilters = () => {
+    const allButton = createButton('Скинути фільтр', 'light-btn', activeCategory === 'all', () => {
+        activeCategory = 'all';
+        render();
+    });
 
-// Малюємо кнопки фільтра і сортування.
-function drawButtons() {
-    const categories = ["Всі", "Електроніка", "Книги", "Одяг"];
-    const filterButtons = document.getElementById("filterButtons");
-    const sortButtons = document.getElementById("sortButtons");
+    const buttons = categories.map((category) => (
+        createButton(category, 'light-btn', activeCategory === category, () => {
+            activeCategory = category;
+            render();
+        })
+    ));
 
-    filterButtons.innerHTML = "";
-    sortButtons.innerHTML = "";
+    filterButtons.replaceChildren(allButton, ...buttons);
+};
 
-    for (let i = 0; i < categories.length; i += 1) {
-        const btn = document.createElement("button");
-        btn.textContent = categories[i];
-        if (currentFilter === categories[i]) {
-            btn.classList.add("active");
-        }
-        btn.addEventListener("click", () => {
-            currentFilter = categories[i];
-            renderProducts();
-            drawButtons();
-        });
-        filterButtons.appendChild(btn);
-    }
-
-    const sorts = [
-        { text: "Без сортування", value: "none" },
-        { text: "За ціною", value: "price" },
-        { text: "За датою створення", value: "created" },
-        { text: "За датою оновлення", value: "updated" }
+const renderSortButtons = () => {
+    const buttons = [
+        createButton('Скинути сортування', 'light-btn', activeSort === 'none', () => {
+            activeSort = 'none';
+            render();
+        }),
+        createButton('Сортувати за ціною', 'light-btn', activeSort === 'price', () => {
+            activeSort = 'price';
+            render();
+        }),
+        createButton('Сортувати за датою створення', 'light-btn', activeSort === 'created', () => {
+            activeSort = 'created';
+            render();
+        }),
+        createButton('Сортувати за датою оновлення', 'light-btn', activeSort === 'updated', () => {
+            activeSort = 'updated';
+            render();
+        })
     ];
 
-    for (let i = 0; i < sorts.length; i += 1) {
-        const btn = document.createElement("button");
-        btn.textContent = sorts[i].text;
-        if (currentSort === sorts[i].value) {
-            btn.classList.add("active");
-        }
-        btn.addEventListener("click", () => {
-            currentSort = sorts[i].value;
-            renderProducts();
-            drawButtons();
-        });
-        sortButtons.appendChild(btn);
-    }
-}
+    sortButtons.replaceChildren(...buttons);
+};
 
-function openModal() {
-    modal.classList.add("show");
-}
+const createProductCard = (product) => {
+    const card = document.createElement('article');
+    card.className = 'product-card add-animation';
 
-// Закриваємо модальне вікно і очищаємо форму.
-function closeModal() {
-    modal.classList.remove("show");
-    productForm.reset();
-    productIdInput.setCustomValidity("");
-    editId = null;
-}
+    const img = document.createElement('img');
+    img.src = product.image;
+    img.alt = product.name;
 
-// Підставляємо дані товару у форму, якщо редагуємо.
-function fillForm(product) {
-    productIdInput.value = product.id;
-    productNameInput.value = product.name;
-    productPriceInput.value = product.price;
-    productCategoryInput.value = product.category;
-    productImageInput.value = product.image;
-}
+    const cardInfo = document.createElement('div');
+    cardInfo.className = 'card-info';
 
-// Повністю перемальовуємо картки товарів.
-function renderProducts() {
-    const list = getSortedProducts(getFilteredProducts());
-    productList.innerHTML = "";
+    const title = document.createElement('h3');
+    title.textContent = product.name;
 
-    if (list.length === 0) {
-        emptyText.style.display = "block";
-    } else {
-        emptyText.style.display = "none";
-    }
+    const category = document.createElement('span');
+    category.className = 'category';
+    category.textContent = product.category;
 
-    for (let i = 0; i < list.length; i += 1) {
-        const product = list[i];
-        const card = document.createElement("div");
-        card.className = "product-card";
-        card.dataset.id = product.id;
+    const actions = document.createElement('div');
+    actions.className = 'card-actions';
 
-        card.innerHTML = `
-            <img src="${product.image}" alt="${product.name}">
-            <p><strong>ID:</strong> ${product.id}</p>
-            <p><strong>Назва:</strong> ${product.name}</p>
-            <p><strong>Ціна:</strong> ${product.price} грн</p>
-            <p><strong>Категорія:</strong> ${product.category}</p>
-            <p><strong>Створено:</strong> ${new Date(product.createdAt).toLocaleString("uk-UA")}</p>
-            <p><strong>Оновлено:</strong> ${new Date(product.updatedAt).toLocaleString("uk-UA")}</p>
-            <div class="buttons">
-                <button class="edit-btn">Редагувати</button>
-                <button class="delete-btn">Видалити</button>
-            </div>
-        `;
+    const editButton = createButton('Редагувати', 'edit-btn', false, () => {
+        openModal(product);
+    });
 
-        const editBtn = card.querySelector(".edit-btn");
-        const deleteBtn = card.querySelector(".delete-btn");
+    const deleteButton = createButton('Видалити', 'delete-btn', false, () => {
+        card.classList.add('delete-animation');
 
-        editBtn.addEventListener("click", () => {
-            // Запам'ятовуємо id, щоб знати який товар редагується.
-            editId = product.id;
-            modalTitle.textContent = "Редагувати товар";
-            fillForm(product);
-            openModal();
-        });
+        setTimeout(() => {
+            products = deleteProduct(products, product.id);
+            render();
+            showToast(`Товар "${product.name}" успішно видалено зі списку.`);
+        }, 300);
+    });
 
-        deleteBtn.addEventListener("click", () => {
-            // Спочатку запускаємо анімацію, потім видаляємо елемент з масиву.
-            card.classList.add("removing");
-            setTimeout(() => {
-                const index = products.findIndex((item) => item.id === product.id);
-                if (index !== -1) {
-                    products.splice(index, 1);
-                }
-                renderProducts();
-                drawButtons();
-                showToast("Товар успішно видалено");
-            }, 300);
-        });
+    cardInfo.append(
+        createText(`ID: ${product.id}`, 'small-text'),
+        title,
+        createText(`Ціна: ${formatPrice(product.price)}`, 'price'),
+        category,
+        createText(`Створено: ${new Date(product.createdAt).toLocaleDateString('uk-UA')}`, 'small-text'),
+        createText(`Оновлено: ${new Date(product.updatedAt).toLocaleDateString('uk-UA')}`, 'small-text')
+    );
+    actions.append(editButton, deleteButton);
+    card.append(img, cardInfo, actions);
 
-        productList.appendChild(card);
-    }
+    return card;
+};
 
-    totalPrice.textContent = `${getTotalPrice()} грн`;
-}
+const renderProducts = () => {
+    const visibleProducts = getVisibleProducts(products, activeCategory, activeSort);
+    const cards = visibleProducts.map(createProductCard);
 
-document.getElementById("openModalBtn").addEventListener("click", () => {
-    modalTitle.textContent = "Додати товар";
-    openModal();
+    productList.replaceChildren(...cards);
+    emptyText.hidden = products.length !== 0;
+};
+
+const renderTotal = () => {
+    totalPrice.textContent = formatPrice(getTotal(products));
+};
+
+const render = () => {
+    renderFilters();
+    renderSortButtons();
+    renderProducts();
+    renderTotal();
+};
+
+const getFormProduct = () => ({
+    id: productId.value.trim(),
+    name: productName.value.trim(),
+    price: Number(productPrice.value),
+    category: productCategory.value,
+    image: productImage.value.trim(),
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString()
 });
 
-document.getElementById("closeModalBtn").addEventListener("click", closeModal);
+const checkId = (id, oldId) => {
+    const idExists = products.some((product) => product.id === id && product.id !== oldId);
+    productId.setCustomValidity(idExists ? 'Товар з таким ID вже існує' : '');
+    return !idExists;
+};
 
-window.addEventListener("click", (event) => {
-    if (event.target === modal) {
+productForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+
+    const oldId = oldProductId.value;
+    const newProduct = getFormProduct();
+
+    const isIdValid = checkId(newProduct.id, oldId);
+
+    if (!isIdValid || !productForm.reportValidity()) {
+        productForm.reportValidity();
+        return;
+    }
+
+    if (oldId) {
+        products = editProduct(products, oldId, newProduct);
+        showToast(`Інформацію про товар ID ${newProduct.id} "${newProduct.name}" успішно оновлено.`);
+    } else {
+        products = addProduct(products, newProduct);
+        showToast(`Товар "${newProduct.name}" додано.`);
+    }
+
+    closeModal();
+    render();
+});
+
+addProductBtn.addEventListener('click', () => openModal());
+closeModalBtn.addEventListener('click', closeModal);
+cancelModalBtn.addEventListener('click', closeModal);
+productModal.addEventListener('click', (event) => {
+    if (event.target === productModal) {
         closeModal();
     }
 });
 
-productIdInput.addEventListener("input", () => {
-    productIdInput.setCustomValidity("");
+productId.addEventListener('input', () => {
+    productId.setCustomValidity('');
 });
 
-productForm.addEventListener("submit", (event) => {
-    event.preventDefault();
-
-    // Перевіряємо форму вбудованою HTML5-валідацією.
-    if (!productForm.reportValidity()) {
-        return;
-    }
-
-    const idValue = productIdInput.value.trim();
-    const sameId = products.find((item) => item.id === idValue && item.id !== editId);
-
-    if (sameId) {
-        productIdInput.setCustomValidity("Такий ID вже існує");
-        productIdInput.reportValidity();
-        return;
-    }
-
-    if (editId === null) {
-        // Додаємо новий товар.
-        const newProduct = {
-            id: idValue,
-            name: productNameInput.value.trim(),
-            price: Number(productPriceInput.value),
-            category: productCategoryInput.value,
-            image: productImageInput.value.trim(),
-            createdAt: new Date().toISOString(),
-            updatedAt: new Date().toISOString()
-        };
-        products.push(newProduct);
-    } else {
-        // Оновлюємо старий товар.
-        const product = products.find((item) => item.id === editId);
-        if (product) {
-            product.id = idValue;
-            product.name = productNameInput.value.trim();
-            product.price = Number(productPriceInput.value);
-            product.category = productCategoryInput.value;
-            product.image = productImageInput.value.trim();
-            product.updatedAt = new Date().toISOString();
-            showToast(`Товар оновлено: ${product.id} ${product.name}`);
-        }
-    }
-
-    closeModal();
-    renderProducts();
-    drawButtons();
-});
-
-drawButtons();
-renderProducts();
+render();

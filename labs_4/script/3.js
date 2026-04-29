@@ -15,7 +15,7 @@ console.log("Масив за ім'ям:",employees);
 let developers=employees.filter(emp=>emp.position ==="розробник")
 console.log("хто розробник:",developers);
 //4. Убираэмо працівників старшіх за 28
-employees=employees.filter(emp=>emp.age<=28);
+employees=employees.filter(emp=>emp.age<28);
 console.log("скіп всіх кому більше 28:",employees);
 //5. Додаэмо нового працівника
 employees.push({name:"Максим",age:21, position: "розробник"});

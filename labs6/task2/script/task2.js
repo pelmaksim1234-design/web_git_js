@@ -3,6 +3,7 @@ const tasks = [
         id: 1,
         text: "Зробити лабораторну",
         done: false,
+        executor: "Іван",
         createdAt: "2026-04-12T10:00:00",
         updatedAt: "2026-04-12T10:00:00"
     },
@@ -10,6 +11,7 @@ const tasks = [
         id: 2,
         text: "Перевірити код",
         done: true,
+        executor: "Марія",
         createdAt: "2026-04-13T10:00:00",
         updatedAt: "2026-04-13T12:00:00"
     }
@@ -20,6 +22,7 @@ let nextId = 3;
 
 const taskForm = document.getElementById("taskForm");
 const taskInput = document.getElementById("taskInput");
+const executorSelect = document.getElementById("executorSelect");
 const taskList = document.getElementById("taskList");
 const emptyTaskText = document.getElementById("emptyTaskText");
 const allCount = document.getElementById("allCount");
@@ -114,12 +117,19 @@ function renderTasks() {
                         <button class="delete-btn">Видалити</button>
                     </div>
                 </div>
+                <p>Виконавець: ${task.executor}</p>
                 <p>Створено: ${new Date(task.createdAt).toLocaleString("uk-UA")}</p>
                 <p>Оновлено: ${new Date(task.updatedAt).toLocaleString("uk-UA")}</p>
                 <p>Стан: ${task.done ? "Виконано" : "Не виконано"}</p>
             </div>
             <div class="task-edit-row">
                 <input class="edit-input" type="text" minlength="3" maxlength="120" required value="${task.text}">
+                <select class="edit-executor">
+                    <option value="Не призначено">Не призначено</option>
+                    <option value="Іван">Іван</option>
+                    <option value="Марія">Марія</option>
+                    <option value="Олексій">Олексій</option>
+                </select>
                 <button class="save-btn">Зберегти</button>
                 <button class="cancel-btn">Скасувати</button>
             </div>
@@ -131,6 +141,7 @@ function renderTasks() {
         const saveBtn = item.querySelector(".save-btn");
         const cancelBtn = item.querySelector(".cancel-btn");
         const editInput = item.querySelector(".edit-input");
+        const editExecutor = item.querySelector(".edit-executor");
 
         text.addEventListener("click", () => {
             // По кліку відмічаємо завдання як виконане або невиконане.
@@ -143,6 +154,7 @@ function renderTasks() {
         editBtn.addEventListener("click", () => {
             // Показуємо поле редагування прямо в списку.
             item.classList.add("editing");
+            editExecutor.value = task.executor;
         });
 
         cancelBtn.addEventListener("click", () => {
@@ -155,6 +167,7 @@ function renderTasks() {
                 return;
             }
             task.text = editInput.value.trim();
+            task.executor = editExecutor.value;
             task.updatedAt = new Date().toISOString();
             renderTasks();
             showToast("Завдання оновлено");
@@ -181,7 +194,7 @@ function renderTasks() {
 taskForm.addEventListener("submit", (event) => {
     event.preventDefault();
 
-    // Запускаємо стандартну HTML5-валідацію.
+    // Запускаємо стандартну HTML-валідацію.
     if (!taskForm.reportValidity()) {
         return;
     }
@@ -191,6 +204,7 @@ taskForm.addEventListener("submit", (event) => {
         id: nextId,
         text: taskInput.value.trim(),
         done: false,
+        executor: executorSelect.value,
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString()
     });
