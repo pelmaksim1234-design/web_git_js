@@ -1,128 +1,251 @@
+* {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
     font-family: Arial, sans-serif;
+    color: #222;
     background: #eef2f3;
 }
 
-.container {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 20px;
-}
-
-.block,
-.task-item {
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    padding: 15px;
-    margin-bottom: 20px;
-}
-
-.form-row,
-.task-top,
-.task-buttons {
+.site-header {
     display: flex;
-    gap: 10px;
+    justify-content: space-between;
+    gap: 20px;
+    align-items: center;
+    padding: 25px 8%;
+    color: white;
+    background: #344955;
+}
+
+.site-header h1,
+.site-header p {
+    margin: 0;
+}
+
+.site-header h1 {
+    margin-bottom: 8px;
+}
+
+.stats {
+    display: grid;
+    gap: 8px;
+    min-width: 190px;
+    padding: 15px;
+    border-radius: 8px;
+    color: #222;
+    background: white;
+}
+
+.container {
+    width: min(900px, 92%);
+    margin: 25px auto;
+}
+
+.block {
+    margin-bottom: 20px;
+    padding: 18px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.block h2 {
+    margin-top: 0;
+}
+
+.task-form,
+.button-row,
+.task-actions,
+.edit-form {
+    display: flex;
     flex-wrap: wrap;
+    gap: 10px;
+}
+
+label {
+    display: grid;
+    flex: 1 1 280px;
+    gap: 6px;
 }
 
 input {
-    flex: 1 1 250px;
-    padding: 10px;
-    border: 1px solid #ccc;
+    width: 100%;
+    padding: 11px;
+    border: 1px solid #bbb;
     border-radius: 6px;
+    font: inherit;
+}
+
+input:focus {
+    outline: 2px solid #8bbccc;
+    border-color: #344955;
 }
 
 button {
-    padding: 10px 14px;
+    cursor: pointer;
     border: none;
     border-radius: 6px;
-    cursor: pointer;
-    background: #2f80ed;
+    font: inherit;
+}
+
+.main-btn,
+.light-btn,
+.edit-btn,
+.delete-btn {
+    padding: 11px 14px;
+}
+
+.main-btn {
     color: white;
+    background: #344955;
 }
 
-button:hover {
-    opacity: 0.9;
+.light-btn {
+    color: #222;
+    background: #e7e7e7;
 }
 
-#sortButtons button {
-    margin: 5px 5px 0 0;
-    background: #555;
+.light-btn.active {
+    color: white;
+    background: #4a6572;
 }
 
-#sortButtons .active {
-    background: #2f80ed;
+.edit-btn {
+    color: white;
+    background: #4a6572;
+}
+
+.delete-btn {
+    color: white;
+    background: #c0392b;
+}
+
+.empty-text {
+    padding: 18px;
+    text-align: center;
+    border: 1px dashed #aaa;
+    border-radius: 8px;
+    background: #fafafa;
+}
+
+.task-list {
+    display: grid;
+    gap: 14px;
+    padding: 0;
+    margin: 0;
+    list-style: none;
 }
 
 .task-item {
-    animation: showItem 0.3s ease;
-}
-
-.task-item.removing {
-    animation: hideItem 0.3s ease forwards;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-left: 6px solid #4a6572;
+    border-radius: 8px;
+    background: #fff;
 }
 
 .task-item.done {
-    background: #dff9e4;
+    border-left-color: #2e7d32;
+    background: #e9f7ec;
 }
 
 .task-text {
-    flex: 1 1 300px;
+    margin: 0 0 8px;
+    font-size: 20px;
+    font-weight: bold;
     cursor: pointer;
 }
 
 .task-item.done .task-text {
+    color: #555;
     text-decoration: line-through;
 }
 
-.task-edit-row {
-    display: none;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin-top: 10px;
+.status {
+    display: inline-block;
+    margin-bottom: 8px;
+    padding: 5px 9px;
+    border-radius: 20px;
+    color: white;
+    background: #4a6572;
+    font-size: 14px;
 }
 
-.task-item.editing .task-edit-row {
+.task-item.done .status {
+    background: #2e7d32;
+}
+
+.task-info {
+    margin-bottom: 10px;
+}
+
+.small-text {
+    margin: 4px 0;
+    color: #666;
+    font-size: 14px;
+}
+
+.edit-form {
+    display: none;
+    margin-top: 12px;
+}
+
+.edit-form input {
+    flex: 1 1 240px;
+}
+
+.task-item.editing .edit-form {
     display: flex;
 }
 
-.task-item.editing .task-view-row {
+.task-item.editing .task-view {
     display: none;
-}
-
-.delete-btn {
-    background: #d63031;
 }
 
 .toast {
     position: fixed;
     right: 20px;
     bottom: 20px;
-    background: #333;
+    max-width: 340px;
+    padding: 14px 18px;
+    border-radius: 8px;
     color: white;
-    padding: 12px 18px;
-    border-radius: 6px;
-    display: none;
+    background: #222;
+    opacity: 0;
+    transform: translateY(15px);
+    pointer-events: none;
+    transition: 0.25s;
 }
 
 .toast.show {
-    display: block;
+    opacity: 1;
+    transform: translateY(0);
 }
 
-@keyframes showItem {
+.add-animation {
+    animation: addTask 0.3s ease;
+}
+
+.delete-animation {
+    animation: deleteTask 0.3s ease forwards;
+}
+
+@keyframes addTask {
     from {
         opacity: 0;
-        transform: translateY(10px);
+        transform: translateY(12px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
     }
 }
 
-@keyframes hideItem {
+@keyframes deleteTask {
     to {
         opacity: 0;
         transform: scale(0.95);
@@ -130,10 +253,27 @@ button:hover {
 }
 
 @media (max-width: 700px) {
-    .form-row,
-    .task-top,
-    .task-buttons,
-    .task-edit-row {
+    .site-header {
+        align-items: stretch;
         flex-direction: column;
+        padding: 20px;
+    }
+
+    .stats {
+        min-width: 0;
+    }
+
+    .task-form,
+    .button-row,
+    .task-actions,
+    .edit-form {
+        flex-direction: column;
+    }
+
+    .main-btn,
+    .light-btn,
+    .edit-btn,
+    .delete-btn {
+        width: 100%;
     }
 }

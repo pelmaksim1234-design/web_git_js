@@ -7,71 +7,42 @@
     <link rel="stylesheet" href="styles/style.css">
 </head>
 <body>
-<main class="page">
-    <header class="hero">
-        <div>
-            <p class="eyebrow">Лабораторна робота №6</p>
-            <h1>To-do list</h1>
-            <p class="hero-text">Список завдань з додаванням, редагуванням, видаленням, позначенням виконання та сортуванням.</p>
-        </div>
-        <section class="stats-grid" aria-label="Статистика завдань">
-            <article class="stat-card">
-                <span>Усього</span>
-                <strong id="allCount">0</strong>
-            </article>
-            <article class="stat-card">
-                <span>Виконано</span>
-                <strong id="doneCount">0</strong>
-            </article>
-        </section>
-    </header>
+<header class="site-header">
+    <div>
+        <h1>To-do list</h1>
+        <p>Простий список завдань з додаванням, редагуванням, видаленням і сортуванням.</p>
+    </div>
+    <div class="stats">
+        <span>Усього: <strong id="allCount">0</strong></span>
+        <span>Виконано: <strong id="doneCount">0</strong></span>
+    </div>
+</header>
 
-    <section class="panel">
+<main class="container">
+    <section class="block">
         <h2>Нове завдання</h2>
-        <form id="taskForm" class="task-form" novalidate>
-            <label class="field field-wide">
-                <span>Текст завдання</span>
-                <input id="taskInput" type="text" minlength="3" maxlength="120" required placeholder="Наприклад: підготувати звіт">
+        <form id="taskForm" class="task-form">
+            <label>
+                Текст завдання
+                <input id="taskInput" type="text" minlength="3" maxlength="100" required placeholder="Наприклад: зробити лабораторну">
             </label>
-
-            <label class="field">
-                <span>Виконавець</span>
-                <select id="executorSelect" required>
-                    <option value="">Оберіть виконавця</option>
-                    <option value="Не призначено">Не призначено</option>
-                    <option value="Іван">Іван</option>
-                    <option value="Марія">Марія</option>
-                    <option value="Олексій">Олексій</option>
-                </select>
-            </label>
-
-            <button class="primary-btn" type="submit">Додати завдання</button>
+            <button class="main-btn" type="submit">Додати завдання</button>
         </form>
     </section>
 
-    <section class="panel">
-        <div class="section-header">
-            <div>
-                <p class="section-kicker">Сортування</p>
-                <h2>Порядок відображення</h2>
-            </div>
-            <div id="sortButtons" class="button-row"></div>
-        </div>
+    <section class="block">
+        <h2>Сортування завдань</h2>
+        <div id="sortButtons" class="button-row"></div>
     </section>
 
-    <section class="panel">
-        <div class="section-header">
-            <div>
-                <p class="section-kicker">Список</p>
-                <h2>Завдання</h2>
-            </div>
-        </div>
-        <p id="emptyTaskText" class="empty-state">Список завдань порожній. Додайте перше завдання.</p>
-        <div id="taskList" class="task-list" aria-live="polite"></div>
+    <section class="block">
+        <h2>Список завдань</h2>
+        <p id="emptyText" class="empty-text">Список завдань порожній. Додайте перше завдання.</p>
+        <ul id="taskList" class="task-list"></ul>
     </section>
 </main>
 
-<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<div id="toast" class="toast"></div>
 
 <script src="script/task2.js"></script>
 </body>
