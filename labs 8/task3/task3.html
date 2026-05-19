@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Завдання 3 - Kanban Board</title>
+  <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+  <main class="app">
+    <header class="header">
+      <div>
+        <p>Лабораторна робота №8 / Завдання 3</p>
+        <h1>Kanban Board</h1>
+      </div>
+      <button id="resetBoard" type="button">Скинути дошку</button>
+    </header>
+
+    <section class="board" id="kanbanBoard" aria-label="Дошка задач">
+      <article class="column" data-column="todo">
+        <h2>Потрібно зробити</h2>
+        <div class="task-list" data-list="todo"></div>
+      </article>
+
+      <article class="column" data-column="progress">
+        <h2>В роботі</h2>
+        <div class="task-list" data-list="progress"></div>
+      </article>
+
+      <article class="column" data-column="review">
+        <h2>Перевірка</h2>
+        <div class="task-list" data-list="review"></div>
+      </article>
+
+      <article class="column" data-column="done">
+        <h2>Готово</h2>
+        <div class="task-list" data-list="done"></div>
+      </article>
+    </section>
+  </main>
+
+  <script src="script/task3.js"></script>
+</body>
+</html>

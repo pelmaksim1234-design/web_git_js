@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Завдання 2 - Slider</title>
+  <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+  <main class="page">
+    <section class="slider-panel" aria-label="Карусель">
+      <div class="heading">
+        <p>Лабораторна робота №8 / Завдання 2</p>
+        <h1>Адаптивний слайдер</h1>
+      </div>
+
+      <div class="slider" id="gallerySlider"></div>
+
+      <div class="config">
+        <label>
+          Autoplay
+          <input id="autoplayToggle" type="checkbox" checked>
+        </label>
+        <label>
+          Стрілки
+          <input id="arrowsToggle" type="checkbox" checked>
+        </label>
+        <label>
+          Пагінація
+          <input id="dotsToggle" type="checkbox" checked>
+        </label>
+        <label>
+          Швидкість, мс
+          <input id="durationInput" type="number" min="150" max="2000" step="50" value="520">
+        </label>
+        <button id="applyConfig" type="button">Застосувати</button>
+      </div>
+    </section>
+  </main>
+
+  <script src="script/task2.js"></script>
+</body>
+</html>
