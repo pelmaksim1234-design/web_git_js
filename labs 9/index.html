@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Лабораторна робота №9</title>
+  <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+  <main class="page">
+    <section class="auth-shell" aria-label="Форми авторизації та реєстрації">
+      <aside class="intro">
+        <p class="eyebrow">Лабораторна робота №9</p>
+        <h1>Робота з формами</h1>
+        <p>
+          Валідація полів, залежні списки, об'єкт FormData та відправлення без перезавантаження сторінки.
+        </p>
+        <div class="status-panel" id="statusPanel" role="status" aria-live="polite">
+          Заповніть форму та натисніть кнопку відправлення.
+        </div>
+      </aside>
+
+      <section class="forms-panel">
+        <div class="tabs" role="tablist" aria-label="Вибір форми">
+          <button class="tab is-active" id="registerTab" type="button" role="tab" aria-selected="true" aria-controls="registerForm">
+            Реєстрація
+          </button>
+          <button class="tab" id="loginTab" type="button" role="tab" aria-selected="false" aria-controls="loginForm">
+            Авторизація
+          </button>
+        </div>
+
+        <form class="form is-active" id="registerForm" action="/register" method="POST" novalidate>
+          <div class="form-grid">
+            <label class="field">
+              <span>Ім'я</span>
+              <input type="text" name="firstName" autocomplete="given-name" data-rules="required nameLength">
+              <small class="error"></small>
+            </label>
+
+            <label class="field">
+              <span>Прізвище</span>
+              <input type="text" name="lastName" autocomplete="family-name" data-rules="required nameLength">
+              <small class="error"></small>
+            </label>
+          </div>
+
+          <label class="field">
+            <span>Електронна пошта</span>
+            <input type="email" name="email" autocomplete="email" placeholder="ivan@example.com" data-rules="required email">
+            <small class="error"></small>
+          </label>
+
+          <div class="form-grid">
+            <label class="field">
+              <span>Пароль</span>
+              <span class="password-wrap">
+                <input type="password" name="password" autocomplete="new-password" data-rules="required password">
+                <button class="toggle-password" type="button" aria-label="Показати пароль">
+                  <span class="eye-icon" aria-hidden="true"></span>
+                </button>
+              </span>
+              <small class="error"></small>
+            </label>
+
+            <label class="field">
+              <span>Підтвердження пароля</span>
+              <span class="password-wrap">
+                <input type="password" name="confirmPassword" autocomplete="new-password" data-rules="required confirmPassword">
+                <button class="toggle-password" type="button" aria-label="Показати пароль">
+                  <span class="eye-icon" aria-hidden="true"></span>
+                </button>
+              </span>
+              <small class="error"></small>
+            </label>
+          </div>
+
+          <div class="form-grid">
+            <label class="field">
+              <span>Телефон</span>
+              <input type="tel" name="phone" autocomplete="tel" placeholder="+380XXXXXXXXX" data-rules="required phone">
+              <small class="error"></small>
+            </label>
+
+            <label class="field">
+              <span>Дата народження</span>
+              <input type="date" name="birthDate" data-rules="required age">
+              <small class="error"></small>
+            </label>
+          </div>
+
+          <fieldset class="field radios" data-name="sex">
+            <legend>Стать</legend>
+            <label>
+              <input type="radio" name="sex" value="чоловіча" data-rules="requiredRadio">
+              <span>Чоловіча</span>
+            </label>
+            <label>
+              <input type="radio" name="sex" value="жіноча" data-rules="requiredRadio">
+              <span>Жіноча</span>
+            </label>
+            <small class="error"></small>
+          </fieldset>
+
+          <div class="form-grid">
+            <label class="field">
+              <span>Країна</span>
+              <select name="country" data-rules="required">
+                <option value="">Оберіть країну</option>
+                <option value="ukraine">Україна</option>
+                <option value="poland">Польща</option>
+                <option value="germany">Німеччина</option>
+              </select>
+              <small class="error"></small>
+            </label>
+
+            <label class="field">
+              <span>Місто</span>
+              <select name="city" data-rules="required" disabled>
+                <option value="">Спочатку оберіть країну</option>
+              </select>
+              <small class="error"></small>
+            </label>
+          </div>
+
+          <button class="submit-btn" type="submit">Зареєструватися</button>
+        </form>
+
+        <form class="form" id="loginForm" action="/login" method="POST" novalidate hidden>
+          <label class="field">
+            <span>Ім'я користувача</span>
+            <input type="text" name="username" autocomplete="username" data-rules="required">
+            <small class="error"></small>
+          </label>
+
+          <label class="field">
+            <span>Пароль</span>
+            <span class="password-wrap">
+              <input type="password" name="loginPassword" autocomplete="current-password" data-rules="required password">
+              <button class="toggle-password" type="button" aria-label="Показати пароль">
+                <span class="eye-icon" aria-hidden="true"></span>
+              </button>
+            </span>
+            <small class="error"></small>
+          </label>
+
+          <label class="remember">
+            <input type="checkbox" name="rememberMe" value="true">
+            <span>Запам'ятати мене</span>
+          </label>
+
+          <button class="submit-btn" type="submit">Увійти</button>
+        </form>
+      </section>
+    </section>
+  </main>
+
+  <script src="script/main.js"></script>
+</body>
+</html>
