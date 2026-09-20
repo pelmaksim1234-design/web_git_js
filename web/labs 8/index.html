@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Лабораторна робота №8</title>
+  <style>
+    :root {
+      --bg: #f2f5f8;
+      --surface: #ffffff;
+      --ink: #1b2533;
+      --muted: #687386;
+      --line: #d8e0ea;
+      --accent: #236a8d;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+    }
+
+    main {
+      width: min(900px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 40px 0;
+    }
+
+    h1 {
+      margin: 0 0 22px;
+      font-size: clamp(34px, 6vw, 58px);
+      line-height: 1;
+    }
+
+    .links {
+      display: grid;
+      gap: 12px;
+    }
+
+    a {
+      display: block;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 18px;
+      color: inherit;
+      text-decoration: none;
+      background: var(--surface);
+    }
+
+    a:hover {
+      border-color: var(--accent);
+    }
+
+    span {
+      display: block;
+      margin-top: 6px;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Лабораторна робота №8</h1>
+    <nav class="links" aria-label="Завдання лабораторної">
+      <a href="task1/task1.html">
+        Завдання 1 - Memory Pair Game
+        <span>Налаштування поля, складності, гравців, раундів і статистика.</span>
+      </a>
+      <a href="task2/task2.html">
+        Завдання 2 - Slider
+        <span>Карусель зі стрілками, dots, autoplay, клавіатурою і параметрами.</span>
+      </a>
+      <a href="task3/task3.html">
+        Завдання 3 - Kanban Board
+        <span>Переміщення задач між колонками через HTML Drag and Drop API.</span>
+      </a>
+    </nav>
+  </main>
+</body>
+</html>

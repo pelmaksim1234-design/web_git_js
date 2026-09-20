@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Memory Pair Game</title>
+  <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+  <main class="game">
+    <header class="hero">
+      <div>
+        <p>Лабораторна робота №8 / Завдання 1</p>
+        <h1>Memory Pair Game</h1>
+      </div>
+      <button id="restart" type="button">Рестарт</button>
+    </header>
+
+    <section class="layout">
+      <aside class="settings" aria-label="Налаштування гри">
+        <h2>Налаштування гри</h2>
+
+        <label>
+          Розмір поля
+          <select id="boardSize">
+            <option value="4x4">4 x 4</option>
+            <option value="4x5">4 x 5</option>
+            <option value="4x6">4 x 6</option>
+            <option value="6x6">6 x 6</option>
+          </select>
+        </label>
+
+        <label>
+          Складність
+          <select id="difficulty">
+            <option value="easy">Easy - 3 хв</option>
+            <option value="normal">Normal - 2 хв</option>
+            <option value="hard">Hard - 1 хв</option>
+          </select>
+        </label>
+
+        <label>
+          Кількість гравців
+          <select id="playerCount">
+            <option value="1">1 гравець</option>
+            <option value="2">2 гравці</option>
+          </select>
+        </label>
+
+        <label>
+          Ім'я гравця 1
+          <input id="playerOne" type="text" maxlength="18" value="Гравець 1">
+        </label>
+
+        <label id="playerTwoWrap">
+          Ім'я гравця 2
+          <input id="playerTwo" type="text" maxlength="18" value="Гравець 2">
+        </label>
+
+        <label>
+          Кількість раундів
+          <input id="rounds" type="number" min="1" max="9" value="1">
+        </label>
+
+        <div class="settings-actions">
+          <button id="startGame" type="button">Розпочати гру</button>
+          <button id="resetSettings" class="secondary" type="button">Скинути налаштування</button>
+        </div>
+      </aside>
+
+      <section class="play-area" aria-label="Ігрова зона">
+        <div class="scorebar">
+          <span>Раунд: <strong id="roundView">1/1</strong></span>
+          <span>Ходи: <strong id="moves">0</strong></span>
+          <span>Час: <strong id="timer">03:00</strong></span>
+          <span>Хід: <strong id="turnView">Гравець 1</strong></span>
+        </div>
+
+        <p class="message" id="message">Налаштуйте гру та натисніть "Розпочати гру".</p>
+        <section class="board" id="board" aria-label="Поле гри"></section>
+
+        <section class="players" id="playersStats" aria-label="Статистика гравців"></section>
+        <section class="history" aria-label="Статистика раундів">
+          <h2>Статистика раундів</h2>
+          <ol id="roundHistory"></ol>
+        </section>
+      </section>
+    </section>
+  </main>
+
+  <script src="script/task1.js"></script>
+</body>
+</html>
