@@ -57,17 +57,17 @@ class Lanos extends Car {
         this.isDiesel = isDiesel;
     }
     displayInfo(): void {
-        console.log(`Brand: ${this.brand}, Year: ${this.year}, Model: ${this.model}, Diesel: ${this.isDiesel}, Code: ${this.getCode()}`);
+        console.log(`Brand: ${this.brand}, Year: ${this.year}, Model: ${this.model}, tdi 1.9: ${this.isDiesel}, Code: ${this.getCode()}`);
     }
 }
 
 const cars: Car[] = [
-    new Toyota(2020, "T123", "Camry", true),
-    new Toyota(2022, "T456", "Corolla", false),
-    new BMW(2021, "B456", "i3", true),
-    new BMW(2023, "B789", "X5", false),
-    new Lanos(2019, "L789", "Zaz", false),
-    new Lanos(2020, "L012", "Daewoo", true)
+    new Toyota(2020, "T123", "Camry 50", true),
+    new Toyota(2022, "T456", "Corolla ae86", false),
+    new BMW(2021, "B456", "e39", true),
+    new BMW(2023, "B789", "X5 e70", false),
+    new Lanos(2019, "L789", "Luaz+zaz+toyota+vw", false),
+    new Lanos(2020, "L012", "Daewoo+chevrolot", true)
 ];
 
 cars.forEach(car => 
