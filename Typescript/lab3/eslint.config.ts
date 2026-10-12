@@ -14,10 +14,23 @@ export default defineConfigWithVueTs(
     files: ['**/*.{vue,ts,mts,tsx}'],
   },
 
-  globalIgnores(['**/dist/**', '**/dist-ssr/**', '**/coverage/**']),
+  globalIgnores([
+    '**/dist/**',
+    '**/dist-ssr/**',
+    '**/coverage/**',
+    '**/public/tutorial/task1/**/*.vue',
+  ]),
 
   ...pluginVue.configs['flat/essential'],
   vueTsConfigs.recommended,
 
   ...pluginOxlint.buildFromOxlintConfigFile('.oxlintrc.json'),
+
+  {
+    name: 'app/component-names',
+    files: ['src/components/Users.vue'],
+    rules: {
+      'vue/multi-word-component-names': ['error', { ignores: ['Users'] }],
+    },
+  },
 )

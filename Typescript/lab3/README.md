@@ -1,48 +1,41 @@
-# .
+# Лабораторна робота №3
 
-This template should help get you started developing with Vue 3 in Vite.
+Навчальний застосунок на Vue 3 для практики компонентів, шаблонів і директив Vue.
 
-## Recommended IDE Setup
+## Проєкт
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+Проєкт створений на Vue 3 з Vite, TypeScript, Composition API у форматі Single File Components (SFC) та ESLint.
 
-## Recommended Browser Setup
+## Практична частина
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+- `public/tutorial/task1/` містить 15 кроків tutorial та відповідні скриншоти.
+- `src/components/Users.vue` відображає картки користувачів, фільтри за статтю та віком, сортування, керування додатковою інформацією та порожній стан списку.
+- `src/data/users.ts` містить типізовані дані 10 користувачів.
+- `public/users/` містить зображення користувачів.
+- Класи карток визначаються віком: до 18, 18–30, 31–50 та понад 50 років.
 
-## Type Support for `.vue` Imports in TS
+## Запуск
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
+Встановіть залежності:
 
 ```sh
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+Запустіть сервер розробки:
 
 ```sh
 npm run dev
 ```
 
-### Type-Check, Compile and Minify for Production
+Перевірте типи та зберіть production-версію:
 
 ```sh
 npm run build
 ```
 
-### Lint with [ESLint](https://eslint.org/)
+Перевірте код ESLint:
 
 ```sh
-npm run lint
+npm exec -- eslint .
 ```

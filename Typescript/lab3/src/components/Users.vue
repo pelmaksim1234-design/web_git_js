@@ -14,15 +14,6 @@ const expandedCards = ref<Record<number, boolean>>({})
 
 const getUserAge = (user: User): number => user.dob.age
 
-const getAgeClass = (user: User): string => {
-  const age = getUserAge(user)
-
-  if (age < 18) return 'minor'
-  if (age <= 30) return 'young'
-  if (age <= 50) return 'adult'
-  return 'senior'
-}
-
 const visibleUsers = computed(() => {
   let filtered = [...users]
 
@@ -123,7 +114,12 @@ const clearFilters = (): void => {
         v-for="user in visibleUsers"
         :key="user.id"
         class="user-card"
-        :class="getAgeClass(user)"
+        :class="{
+          minor: user.dob.age < 18,
+          young: user.dob.age >= 18 && user.dob.age <= 30,
+          adult: user.dob.age >= 31 && user.dob.age <= 50,
+          senior: user.dob.age > 50,
+        }"
       >
         <div class="user-image-wrap">
           <img :src="user.picture" :alt="`${user.name.first} ${user.name.last}`" />
@@ -133,32 +129,39 @@ const clearFilters = (): void => {
           <h2>{{ user.name.title }}. {{ user.name.first }} {{ user.name.last }}</h2>
 
           <div class="meta-row">
-            <span class="meta-label">Gender</span>
-            <span>{{ user.gender === 'female' ? 'Female' : 'Male' }}</span>
+            <span class="meta-label">Стать</span>
+            <span>{{ user.gender === 'female' ? 'Жіноча' : 'Чоловіча' }}</span>
+          </div>
+
+          <div v-if="user.dob.age > 18" class="meta-row">
+            <span class="meta-label">Вік</span>
+            <span>{{ user.dob.age }} років</span>
           </div>
 
           <div class="meta-row">
-            <span class="meta-label">Age</span>
-            <span v-if="user.dob.age > 18">{{ user.dob.age }} years</span>
-            <span v-else>Minor</span>
+            <span class="meta-label">Дата народження</span>
+            <span>{{ new Date(user.dob.date).toLocaleDateString('uk-UA') }}</span>
           </div>
 
           <div class="meta-row">
-            <span class="meta-label">Location</span>
-            <span>{{ user.location.city }}, {{ user.location.country }}</span>
+            <span class="meta-label">Адреса</span>
+            <span>
+              {{ user.location.city }}, {{ user.location.state }}, {{ user.location.country }},
+              {{ user.location.postcode }}
+            </span>
           </div>
 
           <div class="meta-row">
-            <span class="meta-label">Email</span>
+            <span class="meta-label">Електронна пошта</span>
             <span>{{ user.email }}</span>
           </div>
 
           <div class="meta-row">
-            <span class="meta-label">Phone</span>
+            <span class="meta-label">Телефон</span>
             <span>{{ user.phone }}</span>
           </div>
 
-          <div class="hobbies-list">
+          <div class="hobbies-list" aria-label="Захоплення">
             <span v-for="hobby in user.hobbies" :key="hobby" class="hobby-tag">{{ hobby }}</span>
           </div>
 

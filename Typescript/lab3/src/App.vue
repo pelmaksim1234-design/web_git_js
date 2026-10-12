@@ -1,70 +1,55 @@
 <script setup lang="ts">
-const tutorialUrl = 'https://ua.vuejs.org/tutorial/#step-1'
+import Users from './components/Users.vue'
 </script>
 
 <template>
   <main class="lab-page">
-    <h1>Практична частина</h1>
+    <header class="page-header">
+      <p class="eyebrow">Лабораторна робота №3</p>
+      <h1>Користувачі</h1>
+      <p class="intro">
+        Переглядайте картки користувачів, фільтруйте їх за статтю та віком і змінюйте порядок
+        сортування.
+      </p>
+    </header>
 
-    <ol class="task-list">
-      <li>
-        <p>
-          Пройдіть весь
-          <a :href="tutorialUrl" target="_blank" rel="noopener noreferrer">tutorial</a>
-          <span class="url">{{ tutorialUrl }}</span>
-          (Стиль API: Компонізійний, SFC).
-        </p>
-        <p>
-          Результат виконання кожного завдання фіксувати у вигляді скріншоту з відповідним
-          номером (step-1.jpg | png).
-        </p>
-      </li>
-    </ol>
+    <Users />
   </main>
 </template>
 
 <style scoped>
 .lab-page {
+  min-height: 100vh;
+  padding: 24px 0 48px;
+}
+
+.page-header {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 32px 20px;
-  background: #fff;
-  min-height: 100vh;
+  padding: 24px 20px 0;
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  color: #5d7da0;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 h1 {
-  margin: 0 0 24px;
-  font-size: clamp(2rem, 4vw, 3rem);
-  line-height: 1.2;
-  font-weight: 700;
-  color: #111;
-}
-
-.task-list {
   margin: 0;
-  padding-left: 2rem;
-  list-style: decimal;
+  color: #21364f;
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  line-height: 1.1;
 }
 
-.task-list li {
-  margin-bottom: 18px;
-  font-size: 1.1rem;
+.intro {
+  max-width: 680px;
+  margin: 12px 0 0;
+  color: #496581;
+  font-size: 1.05rem;
   line-height: 1.6;
-  color: #111;
-}
-
-.task-list p {
-  margin: 0 0 8px;
-}
-
-.url {
-  color: #111;
-  text-decoration: none;
-}
-
-a {
-  color: #0b57d0;
-  text-decoration: underline;
-  text-underline-offset: 2px;
 }
 </style>

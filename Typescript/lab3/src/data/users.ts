@@ -10,7 +10,7 @@ export type User = {
     city: string
     state: string
     country: string
-    postcode: number
+    postcode: string
   }
   email: string
   phone: string
@@ -28,7 +28,7 @@ export const users: User[] = [
     id: 1,
     gender: 'female',
     name: { title: 'Mrs', first: 'Emma', last: 'Lampi' },
-    location: { city: 'Hausjärvi', state: 'Uusimaa', country: 'Finland', postcode: 98555 },
+    location: { city: 'Hausjärvi', state: 'Uusimaa', country: 'Finland', postcode: '98555' },
     email: 'emma.lampi@example.com',
     phone: '02-689-410',
     picture: '/users/user-1.svg',
@@ -40,7 +40,7 @@ export const users: User[] = [
     id: 2,
     gender: 'male',
     name: { title: 'Mr', first: 'Noah', last: 'Martin' },
-    location: { city: 'Lyon', state: 'Auvergne-Rhone-Alpes', country: 'France', postcode: 69001 },
+    location: { city: 'Lyon', state: 'Auvergne-Rhone-Alpes', country: 'France', postcode: '69001' },
     email: 'noah.martin@example.com',
     phone: '05-478-992',
     picture: '/users/user-2.svg',
@@ -52,7 +52,7 @@ export const users: User[] = [
     id: 3,
     gender: 'female',
     name: { title: 'Ms', first: 'Sofia', last: 'Petrovic' },
-    location: { city: 'Belgrade', state: 'Central Serbia', country: 'Serbia', postcode: 11000 },
+    location: { city: 'Belgrade', state: 'Central Serbia', country: 'Serbia', postcode: '11000' },
     email: 'sofia.petrovic@example.com',
     phone: '011-234-567',
     picture: '/users/user-3.svg',
@@ -64,7 +64,7 @@ export const users: User[] = [
     id: 4,
     gender: 'male',
     name: { title: 'Mr', first: 'Daniel', last: 'Nguyen' },
-    location: { city: 'Hanoi', state: 'Hanoi', country: 'Vietnam', postcode: 100000 },
+    location: { city: 'Hanoi', state: 'Hanoi', country: 'Vietnam', postcode: '100000' },
     email: 'daniel.nguyen@example.com',
     phone: '024-111-111',
     picture: '/users/user-4.svg',
@@ -76,7 +76,7 @@ export const users: User[] = [
     id: 5,
     gender: 'female',
     name: { title: 'Mrs', first: 'Mia', last: 'Andersson' },
-    location: { city: 'Gothenburg', state: 'Västra Götaland', country: 'Sweden', postcode: 41756 },
+    location: { city: 'Gothenburg', state: 'Västra Götaland', country: 'Sweden', postcode: '41756' },
     email: 'mia.andersson@example.com',
     phone: '031-508-39',
     picture: '/users/user-5.svg',
@@ -88,7 +88,7 @@ export const users: User[] = [
     id: 6,
     gender: 'male',
     name: { title: 'Mr', first: 'Leo', last: 'Moreau' },
-    location: { city: 'Montreal', state: 'Quebec', country: 'Canada', postcode: 84000 },
+    location: { city: 'Montreal', state: 'Quebec', country: 'Canada', postcode: '84000' },
     email: 'leo.moreau@example.com',
     phone: '514-987-772',
     picture: '/users/user-6.svg',
@@ -100,7 +100,7 @@ export const users: User[] = [
     id: 7,
     gender: 'female',
     name: { title: 'Ms', first: 'Zara', last: 'Ahmed' },
-    location: { city: 'Dubai', state: 'Dubai', country: 'UAE', postcode: 00000 },
+    location: { city: 'Dubai', state: 'Dubai', country: 'UAE', postcode: '00000' },
     email: 'zara.ahmed@example.com',
     phone: '04-748-113',
     picture: '/users/user-7.svg',
@@ -112,7 +112,7 @@ export const users: User[] = [
     id: 8,
     gender: 'male',
     name: { title: 'Mr', first: 'Onur', last: 'Yilmaz' },
-    location: { city: 'Istanbul', state: 'Istanbul', country: 'Turkey', postcode: 34000 },
+    location: { city: 'Istanbul', state: 'Istanbul', country: 'Turkey', postcode: '34000' },
     email: 'onur.yilmaz@example.com',
     phone: '0212-345-67',
     picture: '/users/user-8.svg',
@@ -124,7 +124,7 @@ export const users: User[] = [
     id: 9,
     gender: 'female',
     name: { title: 'Ms', first: 'Chloe', last: 'Walker' },
-    location: { city: 'Manchester', state: 'Greater Manchester', country: 'United Kingdom', postcode: 12000 },
+    location: { city: 'Manchester', state: 'Greater Manchester', country: 'United Kingdom', postcode: '12000' },
     email: 'chloe.walker@example.com',
     phone: '0161-892-44',
     picture: '/users/user-9.svg',
@@ -136,7 +136,7 @@ export const users: User[] = [
     id: 10,
     gender: 'male',
     name: { title: 'Mr', first: 'Ivan', last: 'Petrenko' },
-    location: { city: 'Kyiv', state: 'Kyiv City', country: 'Ukraine', postcode: 01000 },
+    location: { city: 'Kyiv', state: 'Kyiv City', country: 'Ukraine', postcode: '01000' },
     email: 'ivan.petrenko@example.com',
     phone: '044-207-18',
     picture: '/users/user-10.svg',
