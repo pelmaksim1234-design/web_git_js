@@ -1,0 +1,571 @@
+:root {
+  font-family: Inter, "Segoe UI", sans-serif;
+  color: #203147;
+  background: #f4f7fb;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  min-width: 320px;
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(ellipse at 10% 0%, rgb(220 235 255 / 70%), transparent 36rem),
+    #f4f7fb;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button:focus-visible,
+input:focus-visible {
+  outline: 3px solid rgb(31 130 162 / 35%);
+  outline-offset: 2px;
+}
+
+.lottery-app {
+  width: min(100% - 32px, 1050px);
+  margin: 0 auto;
+  padding: 56px 0 72px;
+}
+
+.page-heading {
+  margin-bottom: 32px;
+  text-align: center;
+}
+
+.page-heading__eyebrow {
+  margin-bottom: 8px;
+  color: #237c91;
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.page-heading h1 {
+  margin: 0;
+  color: #17293e;
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  font-weight: 800;
+  letter-spacing: -0.045em;
+}
+
+.page-heading p:last-child {
+  max-width: 620px;
+  margin: 12px auto 0;
+  color: #65758a;
+}
+
+.lottery-layout {
+  display: grid;
+  gap: 20px;
+}
+
+.panel {
+  padding: clamp(18px, 3vw, 28px);
+  border: 1px solid #e2e9f1;
+  border-radius: 18px;
+  background: rgb(255 255 255 / 92%);
+  box-shadow: 0 12px 36px rgb(28 54 82 / 6%);
+}
+
+.panel-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.panel-heading h2 {
+  margin: 0;
+  color: #21354d;
+  font-size: 1.05rem;
+  font-weight: 750;
+}
+
+.panel-heading p {
+  margin: 5px 0 0;
+  color: #718197;
+  font-size: 0.88rem;
+}
+
+.winner-panel {
+  background: linear-gradient(135deg, #fff 0%, #f3fbfc 100%);
+}
+
+.winner-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.app-button {
+  display: inline-flex;
+  min-height: 40px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 9px 15px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  line-height: 1.2;
+  transition: background-color 140ms ease, border-color 140ms ease, transform 140ms ease;
+}
+
+.app-button:not(:disabled) {
+  cursor: pointer;
+}
+
+.app-button:not(:disabled):active {
+  transform: translateY(1px);
+}
+
+.app-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.48;
+}
+
+.app-button--primary {
+  color: #fff;
+  background: #1689a0;
+}
+
+.app-button--primary:not(:disabled):hover {
+  background: #11758a;
+}
+
+.app-button--secondary {
+  border-color: #d8e1eb;
+  color: #465a70;
+  background: #fff;
+}
+
+.app-button--secondary:not(:disabled):hover {
+  border-color: #aebdcd;
+  background: #f7f9fc;
+}
+
+.app-button--danger {
+  color: #fff;
+  background: #c94d59;
+}
+
+.app-button--danger:not(:disabled):hover {
+  background: #ad3946;
+}
+
+.app-button--quiet {
+  min-height: 34px;
+  padding: 6px 10px;
+  color: #607188;
+  background: transparent;
+}
+
+.app-button--quiet:not(:disabled):hover {
+  color: #203147;
+  background: #f0f4f8;
+}
+
+.winner-list {
+  display: flex;
+  min-height: 54px;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.winner-empty {
+  color: #8795a7;
+  font-size: 0.9rem;
+}
+
+.winner-chip {
+  display: inline-flex;
+  min-height: 38px;
+  align-items: center;
+  gap: 9px;
+  padding: 6px 8px 6px 14px;
+  border: 1px solid #b8e0df;
+  border-radius: 999px;
+  color: #145c63;
+  background: #e9f8f6;
+  font-size: 0.9rem;
+  font-weight: 650;
+}
+
+.winner-chip__remove {
+  display: grid;
+  width: 24px;
+  height: 24px;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  color: #26747a;
+  background: transparent;
+  cursor: pointer;
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.winner-chip__remove:hover {
+  color: #9f3740;
+  background: #d8eeeb;
+}
+
+.registration-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.registration-form__field {
+  display: grid;
+  gap: 7px;
+}
+
+.registration-form__field label {
+  color: #344a61;
+  font-size: 0.86rem;
+  font-weight: 700;
+}
+
+.registration-form__field input {
+  width: 100%;
+  min-height: 42px;
+  padding: 9px 12px;
+  border: 1px solid #d6e0ea;
+  border-radius: 9px;
+  color: #24384f;
+  background: #fff;
+}
+
+.registration-form__field input::placeholder {
+  color: #9aa7b6;
+}
+
+.registration-form__field input[aria-invalid="true"] {
+  border-color: #cc5260;
+}
+
+.field-error {
+  min-height: 1em;
+  color: #b43947;
+  font-size: 0.78rem;
+}
+
+.registration-form__actions {
+  display: flex;
+  grid-column: 1 / -1;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 2px;
+}
+
+.table-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.search-bar {
+  position: relative;
+  width: min(100%, 350px);
+}
+
+.search-bar input {
+  width: 100%;
+  min-height: 42px;
+  padding: 9px 38px 9px 13px;
+  border: 1px solid #d6e0ea;
+  border-radius: 10px;
+  background: #fff;
+}
+
+.search-bar__clear {
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  width: 28px;
+  height: 28px;
+  transform: translateY(-50%);
+  border: 0;
+  border-radius: 50%;
+  color: #718197;
+  background: transparent;
+  cursor: pointer;
+  font-size: 1.15rem;
+}
+
+.search-bar__clear:hover {
+  background: #eef3f8;
+}
+
+.participant-count {
+  margin: 0;
+  color: #718197;
+  font-size: 0.88rem;
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+.participants-table {
+  min-width: 710px;
+  margin: 0;
+  vertical-align: middle;
+}
+
+.participants-table thead th {
+  padding: 11px 12px;
+  border-bottom-color: #dce5ee;
+  color: #718197;
+  font-size: 0.75rem;
+  font-weight: 750;
+  letter-spacing: 0.055em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.participants-table tbody td {
+  padding: 13px 12px;
+  border-bottom-color: #edf1f5;
+  color: #344a61;
+  font-size: 0.9rem;
+}
+
+.sort-button {
+  padding: 0;
+  border: 0;
+  color: inherit;
+  background: transparent;
+  cursor: pointer;
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+}
+
+.sort-button:hover {
+  color: #1689a0;
+}
+
+.table-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 4px;
+}
+
+.table-empty {
+  padding: 28px 12px !important;
+  color: #8795a7 !important;
+  text-align: center;
+}
+
+.notice {
+  margin-bottom: 20px;
+  padding: 12px 15px;
+  border: 1px solid #f0c8ca;
+  border-radius: 10px;
+  color: #8f303a;
+  background: #fff3f3;
+}
+
+.notice-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.notice--success {
+  border-color: #b8e0d0;
+  color: #23664c;
+  background: #effaf4;
+}
+
+.participant-name {
+  font-weight: 650;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  clip-path: inset(50%) !important;
+}
+
+.modal-backdrop {
+  position: fixed;
+  z-index: 1050;
+  inset: 0;
+  display: grid;
+  overflow-y: auto;
+  place-items: center;
+  padding: 24px;
+  background: rgb(18 32 48 / 55%);
+}
+
+.modal-card {
+  width: min(100%, 540px);
+  overflow: hidden;
+  border: 1px solid #e4eaf0;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 24px 80px rgb(10 22 36 / 28%);
+}
+
+.modal-card__header,
+.modal-card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 18px 22px;
+}
+
+.modal-card__header {
+  border-bottom: 1px solid #edf1f5;
+}
+
+.modal-card__header h2 {
+  margin: 0;
+  color: #21354d;
+  font-size: 1.1rem;
+  font-weight: 750;
+}
+
+.modal-card__body {
+  padding: 22px;
+}
+
+.modal-card__footer {
+  justify-content: flex-end;
+  border-top: 1px solid #edf1f5;
+}
+
+.modal-close {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border: 0;
+  border-radius: 9px;
+  color: #687a8f;
+  background: transparent;
+  cursor: pointer;
+  font-size: 1.4rem;
+}
+
+.modal-close:hover {
+  background: #f2f5f8;
+}
+
+.modal-enter-active,
+.modal-leave-active {
+  transition: opacity 160ms ease;
+}
+
+.modal-enter-active .modal-card,
+.modal-leave-active .modal-card {
+  transition: transform 160ms ease;
+}
+
+.modal-enter-from,
+.modal-leave-to {
+  opacity: 0;
+}
+
+.modal-enter-from .modal-card,
+.modal-leave-to .modal-card {
+  transform: translateY(10px) scale(0.99);
+}
+
+.confirm-copy {
+  margin: 0;
+  color: #576a80;
+  line-height: 1.6;
+}
+
+@media (max-width: 640px) {
+  .lottery-app {
+    width: min(100% - 22px, 1050px);
+    padding-top: 32px;
+  }
+
+  .panel-heading {
+    flex-direction: column;
+  }
+
+  .winner-actions {
+    justify-content: flex-start;
+  }
+
+  .registration-form {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+  }
+
+  .registration-form__actions {
+    justify-content: stretch;
+  }
+
+  .registration-form__actions .app-button {
+    flex: 1;
+  }
+
+  .table-toolbar {
+    align-items: stretch;
+  }
+
+  .search-bar {
+    width: 100%;
+  }
+
+  .participant-count {
+    text-align: right;
+  }
+
+  .modal-backdrop {
+    padding: 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
