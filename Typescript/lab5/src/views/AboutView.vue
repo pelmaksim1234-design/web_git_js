@@ -5,8 +5,8 @@
     <div class="profile-panel">
       <span class="profile-avatar" aria-hidden="true">A</span>
       <div>
-        <h2>ПІБ автора</h2>
-        <p class="placeholder-note">Замініть це значення на своє повне ім’я перед здачею роботи.</p>
+        <h2>Похиленко Максим Володимирович</h2>
+        <p class="placeholder-note">Максим</p>
       </div>
     </div>
     <h2 class="section-title">Technical skills</h2>
