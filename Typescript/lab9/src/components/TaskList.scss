@@ -1,0 +1,32 @@
+.task-list {
+  display: grid;
+  gap: 0.7rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  &__empty {
+    display: grid;
+    justify-items: center;
+    gap: 0.55rem;
+    padding: 2.5rem 1rem;
+    border: 1px dashed #dce3e9;
+    border-radius: 0.9rem;
+    color: #788396;
+    text-align: center;
+
+    strong {
+      color: #34425a;
+      font-size: 0.94rem;
+    }
+
+    span:last-child {
+      font-size: 0.82rem;
+    }
+  }
+
+  &__empty-icon {
+    color: #d3a753;
+    font-size: 1.6rem;
+  }
+}

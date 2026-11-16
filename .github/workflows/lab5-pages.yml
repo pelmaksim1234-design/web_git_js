@@ -1,11 +1,15 @@
-name: Deploy lab5 to GitHub Pages
+name: Deploy Study Planner labs to GitHub Pages
 
 on:
   push:
     branches:
+      - main
       - feature/routing
     paths:
       - Typescript/lab5/**
+      - Typescript/lab8/**
+      - Typescript/lab9/**
+      - Typescript/index.html
       - .github/workflows/lab5-pages.yml
   workflow_dispatch:
 
@@ -26,14 +30,26 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 24
-          cache: npm
-          cache-dependency-path: Typescript/lab5/package-lock.json
       - run: npm ci
         working-directory: Typescript/lab5
       - run: npm run build
         working-directory: Typescript/lab5
         env:
           VITE_API_URL: https://dummyjson.com
+      - run: npm ci
+        working-directory: Typescript/lab8
+      - run: npm run build
+        working-directory: Typescript/lab8
+      - run: npm ci
+        working-directory: Typescript/lab9
+      - run: npm run build
+        working-directory: Typescript/lab9
+      - name: Add lab launch page and built React labs
+        run: |
+          mkdir -p Typescript/lab5/dist/Typescript/lab8 Typescript/lab5/dist/Typescript/lab9
+          cp Typescript/index.html Typescript/lab5/dist/Typescript/index.html
+          cp -R Typescript/lab8/dist/. Typescript/lab5/dist/Typescript/lab8/
+          cp -R Typescript/lab9/dist/. Typescript/lab5/dist/Typescript/lab9/
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

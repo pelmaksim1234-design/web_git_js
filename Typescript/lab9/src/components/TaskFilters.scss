@@ -1,0 +1,29 @@
+.task-filters {
+  display: flex;
+  gap: 0.35rem;
+  width: fit-content;
+  max-width: 100%;
+  margin: 1.35rem 0 0.85rem;
+  border: 1px solid #e4e9ef;
+  border-radius: 0.7rem;
+  padding: 0.25rem;
+  background: #f0f3f6;
+
+  &__button {
+    border: 0;
+    border-radius: 0.5rem;
+    padding: 0.55rem 0.85rem;
+    color: #6c7788;
+    background: transparent;
+    font: inherit;
+    font-size: 0.79rem;
+    font-weight: 700;
+    cursor: pointer;
+
+    &--active {
+      color: #263d31;
+      background: #fff;
+      box-shadow: 0 1px 4px rgb(25 41 61 / 9%);
+    }
+  }
+}
